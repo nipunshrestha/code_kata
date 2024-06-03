@@ -2,44 +2,34 @@
 
 using UglyTrivia;
 
-namespace Trivia
+namespace Trivia;
+
+public class GameRunner
 {
-    public class GameRunner
+    private static bool _notAWinner;
+
+    public static void Main(String[] args)
     {
+        Game aGame = new Game();
 
-        private static bool notAWinner;
+        aGame.Add("Chet");
+        aGame.Add("Pat");
+        aGame.Add("Sue");
 
-        public static void Main(String[] args)
+        Random rand = new Random();
+
+        do
         {
-            Game aGame = new Game();
-
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
-
-            Random rand = new Random();
-
-            do
+            aGame.Roll(rand.Next(5) + 1);
+            if (rand.Next(9) == 7)
             {
-
-                aGame.Roll(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
-                {
-                    notAWinner = aGame.WrongAnswer();
-                }
-                else
-                {
-                    notAWinner = aGame.WasCorrectlyAnswered();
-                }
-
-
-
-            } while (notAWinner);
-
-        }
-
+                _notAWinner = aGame.WrongAnswer();
+            }
+            else
+            {
+                _notAWinner = aGame.WasCorrectlyAnswered();
+            }
+        } while (_notAWinner);
 
     }
-
 }
